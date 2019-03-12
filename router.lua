@@ -17,7 +17,6 @@ function lp_api.router.to_string(tab, from_key)
 end
 
 function lp_api.msg_router(data)
-    print(dump(data))
     if data.type == "chat" then
 	    minetest.chat_send_all(core.colorize("#debd21", "<"..data.player.."> "..data.message))
     end
