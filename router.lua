@@ -18,24 +18,24 @@ end
 
 function lp_api.msg_router(data)
     if data.type == "chat" then
-	    minetest.chat_send_all(core.colorize("#debd21", "<"..data.player.."> "..data.message))
+        minetest.chat_send_all(core.colorize("#debd21", "<"..data.player.."> "..data.message))
     end
 
     if data.type == "cmd" and lp_api.router.cmd then
-	    if data.command == "msg" then
+        if data.command == "msg" then
             minetest.chat_send_player(data.args[1], 
             core.colorize("#de6821", "<"..data.player.."> "..lp_api.router.to_string(data.args, 2)))
-	    end
+        end
 
         if data.command == "ban" then
             minetest.ban_player(data.args[1])
-			lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} Banned!", "")
-	    end
+            lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} Banned!", "")
+        end
 
         if data.command == "unban" then
             minetest.unban_player_or_ip(data.args[1])
-			lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} UnBanned!", "")
-	    end
+            lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} UnBanned!", "")
+        end
 
         if data.command == "kick" then
             local result = minetest.kick_player(data.args[1], lp_api.router.to_string(data.args, 2))
@@ -47,10 +47,10 @@ function lp_api.msg_router(data)
                     lp_api.publisher.pub_msg("minetest", "system",
                     "Player {"..data.args[1].."} kicked!", "")
                 end
-		    end
-	    end
+            end
+        end
 
-		if data.command == "grant" then
+        if data.command == "grant" then
             if data.args[2] then
                 local sp = lp_api.router.to_string(data.args, 2)
                 local add_privs = minetest.string_to_privs(sp)
@@ -58,12 +58,12 @@ function lp_api.msg_router(data)
                 for p, _ in pairs(add_privs) do
                     privs[p] = true
                 end
-				minetest.set_player_privs(data.args[1], privs)
+                minetest.set_player_privs(data.args[1], privs)
                 lp_api.publisher.pub_msg("minetest", "system", "The {"..data.args[1].."} was given the", sp)
-			end
-		end
+            end
+        end
 
-		if data.command == "revoke" then
+        if data.command == "revoke" then
             if data.args[2] then
                 local sp = lp_api.router.to_string(data.args, 2)
                 local add_privs = minetest.string_to_privs(sp)
@@ -71,20 +71,20 @@ function lp_api.msg_router(data)
                 for p, _ in pairs(add_privs) do
                     privs[p] = nil
                 end
-				minetest.set_player_privs(data.args[1], privs)
-				lp_api.publisher.pub_msg("minetest", "system", "The {"..data.args[1].."} was taken away the", sp)
-			end
-		end
+                minetest.set_player_privs(data.args[1], privs)
+                lp_api.publisher.pub_msg("minetest", "system", "The {"..data.args[1].."} was taken away the", sp)
+            end
+        end
 
         if data.command == "privs" then
             local privs = minetest.privs_to_string(minetest.get_player_privs(data.args[1]), ' ')
-			lp_api.publisher.pub_msg("minetest", "system", "Privileges of {"..data.args[1].."}:", privs)
-		end
+            lp_api.publisher.pub_msg("minetest", "system", "Privileges of {"..data.args[1].."}:", privs)
+        end
 
-		if data.command == "status" then
-			lp_api.publisher.pub_msg("minetest", "system", "Status server.", minetest.get_server_status())
-		end
-	end
+        if data.command == "status" then
+            lp_api.publisher.pub_msg("minetest", "system", "Status server.", minetest.get_server_status())
+        end
+    end
 end
 
 minetest.register_on_chat_message(function(name, message)
