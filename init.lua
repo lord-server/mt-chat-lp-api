@@ -1,5 +1,3 @@
-S = minetest.get_translator("lp_api")
-
 lp_api = {}
 lp_api.http = minetest.request_http_api()
 lp_api.url = minetest.settings:get("lp_api.url") or "http://localhost:8003"
@@ -28,7 +26,7 @@ if lp_api.http then
     dofile(default_path.."/router.lua")
     dofile(default_path.."/publisher.lua")
     dofile(default_path.."/subscriber.lua")
-    minetest.log(S("[lp_api] Loading... [OK]"))
+    minetest.log("[lp_api] Loading... [OK]")
 else
-    minetest.log(S("[lp_api] Please setup (secure.http_mod = lp_api) in minetest.conf... [ERROR]"))
+    minetest.log("[lp_api] Please setup (secure.http_mod = lp_api) in minetest.conf... [ERROR]")
 end

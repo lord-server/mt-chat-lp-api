@@ -29,12 +29,12 @@ function lp_api.msg_router(data)
 
         if data.command == "ban" then
             minetest.ban_player(data.args[1])
-            lp_api.publisher.pub_msg("minetest", "system", S("Player {")..data.args[1].."} Banned!", "")
+            lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} Banned!", "")
         end
 
         if data.command == "unban" then
             minetest.unban_player_or_ip(data.args[1])
-            lp_api.publisher.pub_msg("minetest", "system", S("Player {")..data.args[1].."} UnBanned!", "")
+            lp_api.publisher.pub_msg("minetest", "system", "Player {"..data.args[1].."} UnBanned!", "")
         end
 
         if data.command == "kick" then
@@ -42,10 +42,10 @@ function lp_api.msg_router(data)
             if result then
                 if data.args[2] then
                     lp_api.publisher.pub_msg("minetest", "system",
-                    S("Player {")..data.args[1].."} kicked!", lp_api.router.to_string(data.args, 2))
+                    "Player {"..data.args[1].."} kicked!", lp_api.router.to_string(data.args, 2))
                 else
                     lp_api.publisher.pub_msg("minetest", "system",
-                    S("Player {")..data.args[1].."} kicked!", "")
+                    "Player {"..data.args[1].."} kicked!", "")
                 end
             end
         end
@@ -59,7 +59,7 @@ function lp_api.msg_router(data)
                     privs[p] = true
                 end
                 minetest.set_player_privs(data.args[1], privs)
-                lp_api.publisher.pub_msg("minetest", "system", S("The player {")..data.args[1]..S("} was given the"), sp)
+                lp_api.publisher.pub_msg("minetest", "system", "The {"..data.args[1].."} was given the", sp)
             end
         end
 
@@ -72,17 +72,17 @@ function lp_api.msg_router(data)
                     privs[p] = nil
                 end
                 minetest.set_player_privs(data.args[1], privs)
-                lp_api.publisher.pub_msg("minetest", "system", S("The player {")..data.args[1]..S("} was taken away the"), sp)
+                lp_api.publisher.pub_msg("minetest", "system", "The {"..data.args[1].."} was taken away the", sp)
             end
         end
 
         if data.command == "privs" then
             local privs = minetest.privs_to_string(minetest.get_player_privs(data.args[1]), ' ')
-            lp_api.publisher.pub_msg("minetest", "system", S("Privileges of {")..data.args[1].."}:", privs)
+            lp_api.publisher.pub_msg("minetest", "system", "Privileges of {"..data.args[1].."}:", privs)
         end
 
         if data.command == "status" then
-            lp_api.publisher.pub_msg("minetest", "system", S("Status server"), minetest.get_server_status())
+            lp_api.publisher.pub_msg("minetest", "system", "Status server.", minetest.get_server_status())
         end
     end
 end
@@ -92,9 +92,9 @@ minetest.register_on_chat_message(function(name, message)
 end)
 
 minetest.register_on_joinplayer(function(player)
-    lp_api.publisher.pub_msg("minetest", "chat", "", S("player {")..player:get_player_name()..S("} joined the game"))
+    lp_api.publisher.pub_msg("minetest", "chat", "", "player {"..player:get_player_name().."} joined the game")
 end)
 
 minetest.register_on_leaveplayer(function(player)
-    lp_api.publisher.pub_msg("minetest", "chat", "", S("player {")..player:get_player_name()..S("} left the game"))
+    lp_api.publisher.pub_msg("minetest", "chat", "", "player {"..player:get_player_name().."} left the game")
 end)

@@ -5,7 +5,7 @@ lp_api.publisher = {}
 
 function lp_api.publisher.resp_handler(result)
     if not result.succeeded and result.code ~= 200 then
-        minetest.log(S("[lp_api] Pub request... [ERROR]"))
+        minetest.log("[lp_api] Pub request... [ERROR]")
     end
 end
 
