@@ -14,7 +14,7 @@ function lp_api.subscriber.resp_handler(result)
         end
     else
         minetest.after(lp_api.timeout, lp_api.subscriber.sub_msg)
-        minetest.log("[lp_api] Sub request... [ERROR]")
+        minetest.log(S("[lp_api] Sub request... [ERROR]"))
     end
 end
 
