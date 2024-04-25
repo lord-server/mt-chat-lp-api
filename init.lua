@@ -1,4 +1,6 @@
 lp_api = {}
+lp_api.enabled = minetest.settings:get_bool("lp_api.enabled", false)
+if not lp_api.enabled then return end
 lp_api.http = minetest.request_http_api()
 lp_api.url = minetest.settings:get("lp_api.url") or "http://localhost:8003"
 lp_api.channel_id = minetest.settings:get("lp_api.channel_id") or "minetest"
@@ -11,14 +13,14 @@ function lp_api.request_http(ext_url,pd,response_handler,pmethod)
     local req = {
         url = lp_api.url..ext_url,
         method = pmethod,
-        post_data = pd, 
-        extra_headers = {lp_api.header}, 
+        post_data = pd,
+        extra_headers = {lp_api.header},
         timeout = lp_api.timeout
     }
 
     lp_api.http.fetch(req, function(result)
         pcall(response_handler, result)
-    end)  
+    end)
 end
 
 if lp_api.http then
