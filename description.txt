@@ -1,2 +1,0 @@
-lp_api
-long poll API
